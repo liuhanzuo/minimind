@@ -1,0 +1,18 @@
+{"time":"2025-02-17T15:06:11.6607963+08:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2025-02-17T15:06:11.6607963+08:00","level":"INFO","msg":"created symlink","path":"D:\\minimind\\wandb\\run-20250217_150611-7333l3qn\\logs\\debug-core.log"}
+{"time":"2025-02-17T15:06:11.6613136+08:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2025-02-17T15:06:11.6748877+08:00","level":"INFO","msg":"created new stream","id":"7333l3qn"}
+{"time":"2025-02-17T15:06:11.6748877+08:00","level":"INFO","msg":"stream: started","id":"7333l3qn"}
+{"time":"2025-02-17T15:06:11.6748877+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"7333l3qn"}}
+{"time":"2025-02-17T15:06:11.6748877+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"7333l3qn"}}
+{"time":"2025-02-17T15:06:11.6748877+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"7333l3qn"}}
+{"time":"2025-02-17T15:06:12.3085751+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-02-17T15:06:12.3090825+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-17T15:07:21.0547583+08:00","level":"INFO","msg":"stream: closing","id":"7333l3qn"}
+{"time":"2025-02-17T15:07:21.0547583+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-17T15:07:21.1565386+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-17T15:07:22.3493912+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-17T15:07:22.9499662+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"7333l3qn"}}
+{"time":"2025-02-17T15:07:22.9499662+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"7333l3qn"}}
+{"time":"2025-02-17T15:07:22.9499662+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"7333l3qn"}}
+{"time":"2025-02-17T15:07:22.9499662+08:00","level":"INFO","msg":"stream: closed","id":"7333l3qn"}

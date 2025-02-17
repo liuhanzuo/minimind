@@ -161,40 +161,88 @@ class MoEGate(nn.Module):
         init.kaiming_uniform_(self.weight, a=math.sqrt(5))
 
     def forward(self, hidden_states):
+        # hidden_states形状: [batch_size, seq_len, hidden_dim]
         bsz, seq_len, h = hidden_states.shape
-        hidden_states = hidden_states.view(-1, h)
-        logits = F.linear(hidden_states, self.weight, None)
+        
+        # 【步骤1】形状变换：合并batch和序列维度用于并行处理单个token
+        hidden_states = hidden_states.view(-1, h)  # new_shape: [batch_size*seq_len, hidden_dim]
+        
+        # 【步骤2】计算专家分数
+        logits = F.linear(hidden_states, self.weight, None)  # [bs*seq_len, n_experts]
+        
+        # 【步骤3】应用评分函数
         if self.scoring_func == 'softmax':
-            scores = logits.softmax(dim=-1)
-        else:
-            raise NotImplementedError(f'insupportable scoring function for MoE gating: {self.scoring_func}')
-
-        topk_weight, topk_idx = torch.topk(scores, k=self.top_k, dim=-1, sorted=False)
-
+            scores = logits.softmax(dim=-1)  # 使用softmax得到每个token的专家分布
+        
+        # 【步骤4】Top-k专家选择
+        topk_weight, topk_idx = torch.topk(
+            scores, 
+            k=self.top_k,       # 每个token选择k个专家
+            dim=-1,             # 专家维度
+            sorted=False        # 不需要排序，提高效率
+        )  # 形状均为[bs*seq_len, top_k]
+    
+        # 【步骤5】可选Top-k归一化（确保权重和为1）
         if self.top_k > 1 and self.norm_topk_prob:
-            denominator = topk_weight.sum(dim=-1, keepdim=True) + 1e-20
+            denominator = topk_weight.sum(dim=-1, keepdim=True) + 1e-20  # 防止除以零
             topk_weight = topk_weight / denominator
-
+            
+        # 【步骤6】辅助损失计算（训练时且需要平衡损失时）
         if self.training and self.alpha > 0.0:
-            scores_for_aux = scores
+            scores_for_aux = scores  # 原始分数用于辅助损失计算
             aux_topk = self.top_k
-            topk_idx_for_aux_loss = topk_idx.view(bsz, -1)
+            
+            # 转换topk_index到对应的形状
+            topk_idx_for_aux_loss = topk_idx.view(bsz, -1)  # [bs, seq_len*topk]
+    
             if self.seq_aux:
+                """
+                序列级辅助损失（缓解序列不同位置专家分布差异过大问题）
+                计算流程：
+                1. 将分数重塑为 [batch, seq_len, n_experts]
+                2. 统计每个batch中专家被选择的比例(CE)
+                3. 计算(平均分数*选择比例)的总和
+                """
+                # [batch_size, seq_len, n_experts]
                 scores_for_seq_aux = scores_for_aux.view(bsz, seq_len, -1)
-                ce = torch.zeros(bsz, self.n_routed_experts, device=hidden_states.device)
-                ce.scatter_add_(1, topk_idx_for_aux_loss,
-                                torch.ones(bsz, seq_len * aux_topk, device=hidden_states.device)).div_(
-                    seq_len * aux_topk / self.n_routed_experts)
+                
+                ce = torch.zeros(
+                    bsz, 
+                    self.n_routed_experts, 
+                    device=hidden_states.device
+                )
+                # 使用scatter_add统计每个batch的专家选择计数
+                ce.scatter_add_(
+                    dim=1,
+                    index=topk_idx_for_aux_loss,
+                    src=torch.ones(bsz, seq_len * aux_topk, device=hidden_states.device)
+                ).div_(seq_len * aux_topk / self.n_routed_experts)  # 归一化
+                
+                # 计算辅助损失: 平均分数矩阵和选择比例的逐元素乘法
                 aux_loss = (ce * scores_for_seq_aux.mean(dim=1)).sum(dim=1).mean() * self.alpha
             else:
-                mask_ce = F.one_hot(topk_idx_for_aux_loss.view(-1), num_classes=self.n_routed_experts)
-                ce = mask_ce.float().mean(0)
-                Pi = scores_for_aux.mean(0)
-                fi = ce * self.n_routed_experts
-                aux_loss = (Pi * fi).sum() * self.alpha
+                """
+                Token级辅助损失（标准负载平衡机制）:
+                计算流程：
+                1. 统计所有token中的专家选择分布
+                2. 约束专家选择分布与分数分布之间的差异
+                """
+                mask_ce = F.one_hot(
+                    topk_idx_for_aux_loss.view(-1), 
+                    num_classes=self.n_routed_experts
+                )  # [bs*seq_len*topk, n_experts]
+                
+                ce = mask_ce.float().mean(0)      # 专家选择频率 [n_experts]
+                Pi = scores_for_aux.mean(0)       # 平均专家分数 [n_experts]
+                fi = ce * self.n_routed_experts   # 标准化频率
+                aux_loss = (Pi * fi).sum() * self.alpha  # 目标使分数分布与选择频率一致
         else:
+            # 推理模式或无辅助损失时
             aux_loss = 0
+            
+        # 返回结果：专家索引，门控权重，辅助损失
         return topk_idx, topk_weight, aux_loss
+
 
 
 class MOEFeedForward(nn.Module):

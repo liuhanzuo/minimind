@@ -1,0 +1,20 @@
+{"time":"2025-02-17T15:17:09.4915009+08:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2025-02-17T15:17:09.4915009+08:00","level":"INFO","msg":"created symlink","path":"D:\\minimind\\wandb\\run-20250217_151709-uvqciki1\\logs\\debug-core.log"}
+{"time":"2025-02-17T15:17:09.4922821+08:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2025-02-17T15:17:09.5035305+08:00","level":"INFO","msg":"created new stream","id":"uvqciki1"}
+{"time":"2025-02-17T15:17:09.5035305+08:00","level":"INFO","msg":"stream: started","id":"uvqciki1"}
+{"time":"2025-02-17T15:17:09.5035305+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"uvqciki1"}}
+{"time":"2025-02-17T15:17:09.5035305+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"uvqciki1"}}
+{"time":"2025-02-17T15:17:09.5035305+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"uvqciki1"}}
+{"time":"2025-02-17T15:17:10.2057456+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-02-17T15:17:10.2062513+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-17T16:09:32.633039+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Full-SFT/uvqciki1/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T16:13:25.3944853+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Full-SFT/uvqciki1/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T16:43:14.3201606+08:00","level":"INFO","msg":"stream: closing","id":"uvqciki1"}
+{"time":"2025-02-17T16:43:14.3201606+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-17T16:43:14.4209653+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-17T16:43:15.5485089+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-17T16:43:16.2057031+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"uvqciki1"}}
+{"time":"2025-02-17T16:43:16.2057031+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"uvqciki1"}}
+{"time":"2025-02-17T16:43:16.2057031+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"uvqciki1"}}
+{"time":"2025-02-17T16:43:16.2057031+08:00","level":"INFO","msg":"stream: closed","id":"uvqciki1"}

@@ -1,0 +1,1 @@
+python train_pretrain.py --epochs 4 --batch_size 128 --use_wandb --warmup_iters 1000 

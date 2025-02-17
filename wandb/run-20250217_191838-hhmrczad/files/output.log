@@ -1,0 +1,16 @@
+LLM总参数量：25.830 百万
+Epoch:[1/1](0/53129) loss:2.496 lr:0.000055000000 epoch_Time:59456.0min:
+Epoch:[1/1](100/53129) loss:2.098 lr:0.000054999563 epoch_Time:828.0min:
+Epoch:[1/1](200/53129) loss:2.156 lr:0.000054998252 epoch_Time:535.0min:
+Epoch:[1/1](300/53129) loss:2.136 lr:0.000054996067 epoch_Time:437.0min:
+Epoch:[1/1](400/53129) loss:2.078 lr:0.000054993007 epoch_Time:388.0min:
+Epoch:[1/1](500/53129) loss:2.051 lr:0.000054989074 epoch_Time:357.0min:
+Epoch:[1/1](600/53129) loss:2.080 lr:0.000054984267 epoch_Time:338.0min:
+Epoch:[1/1](700/53129) loss:2.086 lr:0.000054978587 epoch_Time:324.0min:
+Epoch:[1/1](800/53129) loss:2.069 lr:0.000054972033 epoch_Time:313.0min:
+Epoch:[1/1](900/53129) loss:2.019 lr:0.000054964606 epoch_Time:304.0min:
+Epoch:[1/1](1000/53129) loss:2.052 lr:0.000054956306 epoch_Time:297.0min:
+Epoch:[1/1](1100/53129) loss:2.031 lr:0.000054947134 epoch_Time:291.0min:
+Epoch:[1/1](1200/53129) loss:2.100 lr:0.000054937089 epoch_Time:287.0min:
+Epoch:[1/1](1300/53129) loss:2.031 lr:0.000054926172 epoch_Time:282.0min:
+Epoch:[1/1](1400/53129) loss:2.050 lr:0.000054914384 epoch_Time:280.0min:

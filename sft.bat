@@ -1,0 +1,1 @@
+python train_full_sft.py --epochs 1 --batch_size 128 --use_wandb --data_path "./dataset/sft_512.jsonl" --out_dir "./bigger_out"

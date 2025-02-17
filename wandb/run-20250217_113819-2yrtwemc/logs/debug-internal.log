@@ -1,0 +1,33 @@
+{"time":"2025-02-17T11:38:19.5166043+08:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2025-02-17T11:38:19.5166043+08:00","level":"INFO","msg":"created symlink","path":"D:\\minimind\\wandb\\run-20250217_113819-2yrtwemc\\logs\\debug-core.log"}
+{"time":"2025-02-17T11:38:19.51769+08:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2025-02-17T11:38:19.642639+08:00","level":"INFO","msg":"created new stream","id":"2yrtwemc"}
+{"time":"2025-02-17T11:38:19.642639+08:00","level":"INFO","msg":"stream: started","id":"2yrtwemc"}
+{"time":"2025-02-17T11:38:19.642639+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"2yrtwemc"}}
+{"time":"2025-02-17T11:38:19.642639+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"2yrtwemc"}}
+{"time":"2025-02-17T11:38:19.642639+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"2yrtwemc"}}
+{"time":"2025-02-17T11:38:20.2936324+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-02-17T11:38:20.2942699+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-02-17T12:30:09.5209242+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T12:36:52.4884262+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T12:45:55.0034691+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T14:03:12.0147799+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": dial tcp 35.186.228.49:443: connectex: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond."}
+{"time":"2025-02-17T14:03:14.2951178+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": read tcp 192.168.110.239:56858->35.186.228.49:443: wsarecv: A connection attempt failed because the connected party did not properly respond after a period of time, or established connection failed because connected host has failed to respond."}
+{"time":"2025-02-17T14:03:25.39708+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-02-17T14:03:25.39708+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-02-17T14:03:29.6993033+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-02-17T14:03:29.8772205+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/graphql\": dial tcp: lookup api.wandb.ai: no such host"}
+{"time":"2025-02-17T14:17:57.9279565+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T14:25:26.5309383+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": read tcp 192.168.110.239:58594->35.186.228.49:443: wsarecv: An existing connection was forcibly closed by the remote host."}
+{"time":"2025-02-17T14:26:38.0230296+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T14:29:50.9615417+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T14:30:35.9663723+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": read tcp 192.168.110.239:58718->35.186.228.49:443: wsarecv: An existing connection was forcibly closed by the remote host."}
+{"time":"2025-02-17T14:37:57.1660103+08:00","level":"INFO","msg":"api: retrying error","error":"Post \"https://api.wandb.ai/files/lhz24-tsinghua-university/MiniMind-Pretrain/2yrtwemc/file_stream\": unexpected EOF"}
+{"time":"2025-02-17T14:55:37.5554214+08:00","level":"INFO","msg":"stream: closing","id":"2yrtwemc"}
+{"time":"2025-02-17T14:55:37.5554214+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-02-17T14:55:37.6536715+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-02-17T14:55:41.3658139+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-02-17T14:55:41.9818361+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"2yrtwemc"}}
+{"time":"2025-02-17T14:55:41.9818361+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"2yrtwemc"}}
+{"time":"2025-02-17T14:55:41.9818361+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"2yrtwemc"}}
+{"time":"2025-02-17T14:55:41.9818361+08:00","level":"INFO","msg":"stream: closed","id":"2yrtwemc"}

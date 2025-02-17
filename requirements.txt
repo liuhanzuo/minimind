@@ -26,5 +26,3 @@ trl==0.13.0
 ujson==5.1.0
 wandb==0.18.3
 streamlit==1.30.0
-torch==2.2.2
-torchvision==0.17.2
