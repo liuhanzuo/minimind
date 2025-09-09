@@ -1,2 +1,3 @@
 from .rmsnorm import rmsnorm
-__all__ = ["rmsnorm"]
+from .matmul import matmul
+__all__ = ["rmsnorm", "matmul"]
