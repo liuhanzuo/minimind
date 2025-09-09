@@ -1,0 +1,11 @@
+Metadata-Version: 2.1
+Name: triton-framework
+Version: 0.1.0
+Summary: A Triton-based training & inference framework scaffold
+Author: Your Name
+Requires-Python: >=3.8
+Requires-Dist: torch>=2.1.0
+Requires-Dist: triton>=2.0.0
+Requires-Dist: numpy>=1.24
+Requires-Dist: pyyaml>=6.0
+Requires-Dist: tqdm>=4.65
