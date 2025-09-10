@@ -1,0 +1,100 @@
+{
+  "os":  "Linux-5.4.241-1-tlinux4-0017.7-x86_64-with-glibc2.2.5",
+  "python":  "3.8.12",
+  "startedAt":  "2025-09-10T03:15:17.553889Z",
+  "args":  [
+    "--epochs",
+    "1",
+    "--batch_size",
+    "32",
+    "--dim",
+    "1024",
+    "--n_layers",
+    "24",
+    "--max_seq_len",
+    "1024",
+    "--data_path",
+    "./dataset/sft_1024.jsonl",
+    "--use_wandb"
+  ],
+  "program":  "train_full_sft.py",
+  "codePath":  "train_full_sft.py",
+  "git":  {
+    "remote":  "git@github.com:liuhanzuo/minimind.git",
+    "commit":  "75f90d7147a257e47db7b724e8aa93afabc7fba1"
+  },
+  "email":  "lhz24@mails.tsinghua.edu.cn",
+  "root":  "/apdcephfs/private_pighzliu/minimind",
+  "host":  "TENCENT64.site",
+  "username":  "root",
+  "executable":  "/usr/local/python/bin/python3",
+  "codePathLocal":  "train_full_sft.py",
+  "cpu_count":  192,
+  "cpu_count_logical":  384,
+  "gpu":  "[NVIDIA H20, NVIDIA H20, NVIDIA H20, NVIDIA H20, NVIDIA H20, NVIDIA H20, NVIDIA H20, NVIDIA H20]",
+  "gpu_count":  8,
+  "disk":  {
+    "/":  {
+      "total":  "12800361496576",
+      "used":  "9346153672704"
+    }
+  },
+  "memory":  {
+    "total":  "2432295919616"
+  },
+  "cpu":  {
+    "count":  192,
+    "countLogical":  384
+  },
+  "gpu_nvidia":  [
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    },
+    {
+      "name":  "NVIDIA H20",
+      "memoryTotal":  "102625181696",
+      "cudaCores":  9984,
+      "architecture":  "Hopper"
+    }
+  ],
+  "cudaVersion":  "12.3"
+}

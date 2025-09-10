@@ -2,3 +2,6 @@
 /dataset
 /.venv
 /out
+*__pycache__/
+*.pyc
+*egg-info/

@@ -1,0 +1,10 @@
+{"time":"2025-09-10T11:15:17.599730953+08:00","level":"INFO","msg":"using version","core version":"0.18.3"}
+{"time":"2025-09-10T11:15:17.59988351+08:00","level":"INFO","msg":"created symlink","path":"/apdcephfs/private_pighzliu/minimind/wandb/run-20250910_111516-x6aw3xsp/logs/debug-core.log"}
+{"time":"2025-09-10T11:15:17.671203282+08:00","level":"ERROR","msg":"dialing: google: could not find default credentials. See https://cloud.google.com/docs/authentication/external/set-up-adc for more information"}
+{"time":"2025-09-10T11:15:17.72568303+08:00","level":"INFO","msg":"created new stream","id":"x6aw3xsp"}
+{"time":"2025-09-10T11:15:17.726097812+08:00","level":"INFO","msg":"stream: started","id":"x6aw3xsp"}
+{"time":"2025-09-10T11:15:17.726123321+08:00","level":"INFO","msg":"writer: Do: started","stream_id":{"value":"x6aw3xsp"}}
+{"time":"2025-09-10T11:15:17.726147861+08:00","level":"INFO","msg":"sender: started","stream_id":{"value":"x6aw3xsp"}}
+{"time":"2025-09-10T11:15:17.72618022+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"x6aw3xsp"}}
+{"time":"2025-09-10T11:15:19.021701138+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
+{"time":"2025-09-10T11:15:19.046115627+08:00","level":"INFO","msg":"Starting system monitor"}
