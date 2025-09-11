@@ -154,4 +154,20 @@ def flash_attention(q: torch.Tensor, k: torch.Tensor, v: torch.Tensor, causal: b
     )
     return out.to(q.dtype)
 
-__all__ = ["flash_attention"]
+def flash_attention_autograd(q: torch.Tensor, k: torch.Tensor, v: torch.Tensor, causal: bool = False) -> torch.Tensor:
+    """Autograd-friendly attention using PyTorch SDPA.
+
+    Shapes: q,k,v = [B, H, N, D]. Returns same shape, supports backward.
+    This is used during training until a Triton backward is implemented.
+    """
+    B, H, N, D = q.shape
+    q_ = q.reshape(B * H, N, D)
+    k_ = k.reshape(B * H, N, D)
+    v_ = v.reshape(B * H, N, D)
+    out = torch.nn.functional.scaled_dot_product_attention(
+        q_, k_, v_, attn_mask=None, dropout_p=0.0, is_causal=causal
+    )  # [B*H, N, D]
+    return out.reshape(B, H, N, D)
+
+
+__all__ = ["flash_attention", "flash_attention_autograd"]

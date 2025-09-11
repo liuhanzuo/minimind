@@ -3,7 +3,7 @@ import torch
 try:
     import triton  # type: ignore
     import triton.language as tl  # type: ignore
-    from src.configs.configs import SILU_AUTOTUNE_CONFIGS, SILU_AUTOTUNE_KEY
+    from ..configs.configs import SILU_AUTOTUNE_CONFIGS, SILU_AUTOTUNE_KEY
     _TRITON_AVAILABLE = True
 except Exception:
     _TRITON_AVAILABLE = False
@@ -31,6 +31,8 @@ def silu(x: torch.Tensor) -> torch.Tensor:
     x_flat = x.reshape(-1)
     y_flat = y.reshape(-1)
     size = x_flat.numel()
-    grid = (triton.cdiv(size, SILU_AUTOTUNE_CONFIGS[0].kwargs["BLOCK"]),)
-    _silu_forward[grid](x_flat, y_flat, size=size, BLOCK=SILU_AUTOTUNE_CONFIGS[0].kwargs["BLOCK"], num_warps=SILU_AUTOTUNE_CONFIGS[0].num_warps)
+    block = SILU_AUTOTUNE_CONFIGS[0].kwargs.get("BLOCK", 1024)
+    warps = getattr(SILU_AUTOTUNE_CONFIGS[0], "num_warps", 4)
+    grid = (triton.cdiv(size, block),)
+    _silu_forward[grid](x_flat, y_flat, size=size, BLOCK=block, num_warps=warps)
     return y

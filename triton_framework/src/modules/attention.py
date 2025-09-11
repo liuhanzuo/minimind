@@ -8,7 +8,7 @@ we fall back to torch.nn.functional.scaled_dot_product_attention for correctness
 import torch
 from torch import nn
 from .linear import TritonLinear
-from kernels.attention import flash_attention, flash_attention_autograd
+from ..kernels.attention import flash_attention, flash_attention_autograd
 
 
 class MultiHeadAttention(nn.Module):
@@ -63,14 +63,14 @@ class MultiHeadAttention(nn.Module):
             else:
                 out = flash_attention(q, k, v, causal=self.causal)
         else:
-            # PyTorch fallback (includes autograd)
-            q_ = q.transpose(1, 2).reshape(B, N_new, H * D)
-            k_ = k.transpose(1, 2).reshape(B, k.shape[2], H * D)
-            v_ = v.transpose(1, 2).reshape(B, v.shape[2], H * D)
+            # PyTorch fallback (includes autograd), do per-head SDPA
+            q_ = q.reshape(B * H, N_new, D)
+            k_ = k.reshape(B * H, k.shape[2], D)
+            v_ = v.reshape(B * H, v.shape[2], D)
             out = torch.nn.functional.scaled_dot_product_attention(
                 q_, k_, v_, attn_mask=None, dropout_p=0.0, is_causal=self.causal
-            )
-            out = out.view(B, N_new, H, D).transpose(1, 2)
+            )  # [B*H, N_new, D]
+            out = out.view(B, H, N_new, D)
         out = out.transpose(1, 2).reshape(B, N_new, E)
         return self.out_proj(out), (self.k_cache, self.v_cache) if cache_flag else None
 

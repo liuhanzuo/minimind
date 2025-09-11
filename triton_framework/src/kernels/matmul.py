@@ -1,7 +1,7 @@
 import torch
 import triton
 import triton.language as tl
-from src.configs.configs import (
+from ..configs.configs import (
     MATMUL_AUTOTUNE_CONFIGS,
     MATMUL_AUTOTUNE_KEY,
 )
@@ -32,15 +32,27 @@ def _matmul_kernel(A_ptr, B_ptr, C_ptr, M: tl.constexpr, N: tl.constexpr, K: tl.
     tl.store(c_ptrs, acc, mask=(offs_m[:, None] < M) & (offs_n[None, :] < N))
     
 def matmul(A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
-    assert A.is_cuda == B.is_cuda, "matmul requires CUDA tensors"
+    # Supports A as [M,K] or [B,M,K]; B as [K,N]
+    assert A.is_cuda == B.is_cuda, "matmul requires tensors on the same device"
     is_cuda = A.is_cuda
-    M, K = A.shape
+    # Ensure input dtypes match (AMP may make A bf16 and B fp32)
+    if A.dtype != B.dtype:
+        B = B.to(dtype=A.dtype)
+    if A.dim() == 3:
+        Bsz, M, K = A.shape
+        A2 = A.reshape(Bsz * M, K)
+    else:
+        Bsz = None
+        M, K = A.shape
+        A2 = A
     K2, N = B.shape
     assert K == K2, "Inner dimensions must match for matmul"
     if not is_cuda:
-        return _matmul(A, B)
+        C2 = _matmul(A2, B)
+        C = C2 if Bsz is None else C2.view(Bsz, M, N)
+        return C
 
-    C = torch.empty((M, N), device=A.device, dtype=torch.float32)
+    C2 = torch.empty((A2.shape[0], N), device=A.device, dtype=torch.float32)
 
     def grid(meta):
         return (
@@ -48,6 +60,7 @@ def matmul(A: torch.Tensor, B: torch.Tensor) -> torch.Tensor:
             triton.cdiv(N, meta["BLOCK_N"]),
         )
 
-    _matmul_kernel[grid](A, B, C, M=M, N=N, K=K)
-    # Return in the same dtype as inputs to integrate better with training graphs
-    return C if C.dtype == A.dtype else C.to(A.dtype)
+    _matmul_kernel[grid](A2, B, C2, M=A2.shape[0], N=N, K=K)
+    C2 = C2.to(A.dtype) if C2.dtype != A.dtype else C2
+    C = C2 if Bsz is None else C2.view(Bsz, M, N)
+    return C

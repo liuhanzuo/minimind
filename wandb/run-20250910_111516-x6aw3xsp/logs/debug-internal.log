@@ -8,3 +8,12 @@
 {"time":"2025-09-10T11:15:17.72618022+08:00","level":"INFO","msg":"handler: started","stream_id":{"value":"x6aw3xsp"}}
 {"time":"2025-09-10T11:15:19.021701138+08:00","level":"INFO","msg":"wandb-core","!BADKEY":null}
 {"time":"2025-09-10T11:15:19.046115627+08:00","level":"INFO","msg":"Starting system monitor"}
+{"time":"2025-09-10T14:57:05.895188589+08:00","level":"INFO","msg":"stream: closing","id":"x6aw3xsp"}
+{"time":"2025-09-10T14:57:05.895266347+08:00","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2025-09-10T14:57:05.907763557+08:00","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2025-09-10T14:57:10.899363539+08:00","level":"ERROR","msg":"monitor: gpu: timeout waiting for process to exit"}
+{"time":"2025-09-10T14:57:10.977040566+08:00","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2025-09-10T14:57:11.43813201+08:00","level":"INFO","msg":"handler: closed","stream_id":{"value":"x6aw3xsp"}}
+{"time":"2025-09-10T14:57:11.438198988+08:00","level":"INFO","msg":"sender: closed","stream_id":{"value":"x6aw3xsp"}}
+{"time":"2025-09-10T14:57:11.438181759+08:00","level":"INFO","msg":"writer: Close: closed","stream_id":{"value":"x6aw3xsp"}}
+{"time":"2025-09-10T14:57:11.43910873+08:00","level":"INFO","msg":"stream: closed","id":"x6aw3xsp"}

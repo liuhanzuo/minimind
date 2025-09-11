@@ -11,6 +11,7 @@ src/engine/schedulers.py
 src/engine/trainer.py
 src/engine/utils.py
 src/kernels/__init__.py
+src/kernels/attention.py
 src/kernels/dropout.py
 src/kernels/gelu.py
 src/kernels/matmul.py
@@ -18,6 +19,7 @@ src/kernels/rmsnorm.py
 src/kernels/silu.py
 src/modules/__init__.py
 src/modules/activations.py
+src/modules/attention.py
 src/modules/basic_block.py
 src/modules/linear.py
 src/modules/simple_lm.py
@@ -27,4 +29,5 @@ src/triton_framework.egg-info/SOURCES.txt
 src/triton_framework.egg-info/dependency_links.txt
 src/triton_framework.egg-info/requires.txt
 src/triton_framework.egg-info/top_level.txt
+tests/test_minimind_triton.py
 tests/test_rmsnorm.py

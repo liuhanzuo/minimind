@@ -21,6 +21,7 @@ from triton_framework.engine.utils import get_device, set_seed
 from minimind.model.model import MiniMindLM
 from minimind.model.LMConfig import LMConfig
 from minimind.model.dataset import PretrainDataset
+from triton_framework.modules.basic_block import MiniMindLM_Triton, MiniMindConfig
 
 
 def logger(msg: str):
@@ -48,6 +49,7 @@ def main():
     parser.add_argument("--max_seq_len", default=512, type=int)
     parser.add_argument("--use_moe", default=False, type=bool)
     parser.add_argument("--seed", type=int, default=1337)
+    parser.add_argument("--engine_model", type=str, default="baseline", choices=["baseline", "triton"], help="Use baseline MiniMindLM or Triton-backed MiniMindLM_Triton")
     args = parser.parse_args()
 
     set_seed(args.seed)
@@ -66,7 +68,22 @@ def main():
     tokenizer = AutoTokenizer.from_pretrained('./minimind/model/minimind_tokenizer')
     lm_config = LMConfig(dim=args.dim, n_layers=args.n_layers, max_seq_len=args.max_seq_len, use_moe=args.use_moe)
 
-    model = MiniMindLM(lm_config).to(device)
+    # Vocab size from tokenizer for Triton model config
+    vocab_size = tokenizer.vocab_size
+    if args.engine_model == "triton":
+        mm_cfg = MiniMindConfig(
+            vocab_size=vocab_size,
+            dim=lm_config.dim,
+            n_heads=lm_config.n_heads,
+            n_layers=lm_config.n_layers,
+            max_seq_len=lm_config.max_seq_len,
+            dropout=lm_config.dropout,
+            rope_theta=lm_config.rope_theta,
+            use_triton=True,
+        )
+        model = MiniMindLM_Triton(mm_cfg).to(device)
+    else:
+        model = MiniMindLM(lm_config).to(device)
     if ddp_ctx:
         # match original ignore buffer name
         model._ddp_params_and_buffers_to_ignore = {"pos_cis"}
@@ -123,11 +140,16 @@ def main():
             # forward
             ctx = (torch.cuda.amp.autocast(dtype=autocast_dtype) if amp_enabled else nullcontext())
             with ctx:
-                res = model(X)
-                logits = res.logits
-                loss = loss_fct(logits.view(-1, logits.size(-1)), Y.view(-1)).view(Y.size())
-                loss = (loss * loss_mask).sum() / loss_mask.sum()
-                loss = loss + res.aux_loss
+                if args.engine_model == "triton":
+                    logits = model(X)
+                    loss = loss_fct(logits.view(-1, logits.size(-1)), Y.view(-1)).view(Y.size())
+                    loss = (loss * loss_mask).sum() / loss_mask.sum()
+                else:
+                    res = model(X)
+                    logits = res.logits
+                    loss = loss_fct(logits.view(-1, logits.size(-1)), Y.view(-1)).view(Y.size())
+                    loss = (loss * loss_mask).sum() / loss_mask.sum()
+                    loss = loss + res.aux_loss
                 loss = loss / args.accumulation_steps
 
             # backward

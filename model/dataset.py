@@ -45,10 +45,10 @@ class PretrainDataset(Dataset):
         )
         input_ids = encoding.input_ids.squeeze()
         loss_mask = (input_ids != self.tokenizer.pad_token_id)
-
-        X = torch.tensor(input_ids[:-1], dtype=torch.long)
-        Y = torch.tensor(input_ids[1:], dtype=torch.long)
-        loss_mask = torch.tensor(loss_mask[1:], dtype=torch.long)
+    # Avoid constructing tensors from tensors; use view/slice + to(dtype)
+    X = input_ids[:-1].to(dtype=torch.long).clone()
+    Y = input_ids[1:].to(dtype=torch.long).clone()
+    loss_mask = loss_mask[1:].to(dtype=torch.long).clone()
         return X, Y, loss_mask
 
 

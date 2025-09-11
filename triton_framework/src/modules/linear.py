@@ -59,7 +59,14 @@ class TritonLinear(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor:
         # x: [*, in_features]; weight: [out_features, in_features]
         w_t = self.weight.transpose(0, 1).contiguous()  # [in, out]
-        y = TritonMatmulFunction.apply(x, w_t) if self.use_triton and x.is_cuda else x @ w_t
+        in_features = w_t.shape[0]
+        out_features = w_t.shape[1]
+        orig_shape = x.shape
+        # Flatten leading dims to 2D for Triton matmul
+        x2d = x.reshape(-1, in_features)
+        use_triton = self.use_triton and x2d.is_cuda
+        y2d = TritonMatmulFunction.apply(x2d, w_t) if use_triton else x2d @ w_t
+        y = y2d.view(*orig_shape[:-1], out_features)
         if self.bias is not None:
             y = y + self.bias
         return y

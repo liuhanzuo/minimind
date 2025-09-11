@@ -27,6 +27,11 @@ from .useful_combinations import (
 from .attention import (
 	MultiHeadAttention,
 )
+from .basic_block import (
+	MiniMindBlock as TritonMiniMindBlock,
+	MiniMindLM_Triton,
+	MiniMindConfig,
+)
 
 __all__ = [
 	# activations
@@ -38,4 +43,6 @@ __all__ = [
 	"FusedMLP", "BaselineMLP", "TritonMLP",
 	# attention
 	"MultiHeadAttention",
+	# minimind style
+	"TritonMiniMindBlock", "MiniMindLM_Triton", "MiniMindConfig",
 ]

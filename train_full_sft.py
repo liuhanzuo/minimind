@@ -99,7 +99,10 @@ def init_model(lm_config):
     tokenizer = AutoTokenizer.from_pretrained('./model/minimind_tokenizer')
     model = MiniMindLM(lm_config)
     moe_path = '_moe' if lm_config.use_moe else ''
-    ckp = f'./out/pretrain_{lm_config.dim}{moe_path}.pth'
+    if args.ckp is None:
+        ckp = f'./out/pretrain_{lm_config.dim}{moe_path}.pth'
+    else:
+        ckp = args.ckp
     print("Loading pretrained model from {}", ckp)
     state_dict = torch.load(ckp, map_location=args.device)
     model.load_state_dict(state_dict, strict=False)
@@ -143,6 +146,7 @@ if __name__ == "__main__":
     parser.add_argument('--max_seq_len', default=512, type=int)
     parser.add_argument('--use_moe', default=False, type=bool)
     parser.add_argument("--data_path", type=str, default="./dataset/sft_mini_512.jsonl")
+    parser.add_argument("--ckp", type=str, default=None)
 
     args = parser.parse_args()
 
