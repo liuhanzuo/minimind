@@ -17,7 +17,11 @@ def init_model(args):
     if args.load == 0:
         moe_path = '_moe' if args.use_moe else ''
         modes = {0: 'pretrain', 1: 'full_sft', 2: 'rlhf', 3: 'reason'}
-        ckp = f'./{args.out_dir}/{modes[args.model_mode]}_{args.dim}{moe_path}.pth'
+        if args.ckp is None:
+            ckp = f'./{args.out_dir}/{modes[args.model_mode]}_{args.dim}{moe_path}.pth'
+        else:
+            ckp = args.ckp
+        print(f'加载MiniMind模型权重: {ckp}')
 
         model = MiniMindLM(LMConfig(
             dim=args.dim,
@@ -125,6 +129,7 @@ def main():
     parser.add_argument('--load', default=0, type=int, help="0: 原生torch权重，1: transformers加载")
     parser.add_argument('--model_mode', default=1, type=int,
                         help="0: 预训练模型，1: SFT-Chat模型，2: RLHF-Chat模型，3: Reason模型")
+    parser.add_argument('--ckp', default=None, type=str, help="加载指定权重文件，默认None则按模式自动匹配")
     args = parser.parse_args()
 
     model, tokenizer = init_model(args)
